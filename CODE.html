@@ -1,1 +1,127 @@
-
+<!DOCTYPE html>
+<html> 
+  <head>
+    <title>Processing.JS inside Webpages: Template</title> 
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas> 
+  </body>
+ 
+  <!-- Include the processing.js library -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+  <script>
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(400, 400); 
+      frameRate(30);
+        
+        {var boatX = -60;
+    var boatY = 252;
+    var birdX = 441;
+    var birdY = 50;
+    var sunX = 344;
+    var sunY = 450;
+    var seaX = 200;
+    var seaY = 285;
+    var speedY = 1;
+    var wingY = 15;
+    var timer = 0;
+    
+    noStroke();
+    var drawBoat = function(x,y,s,r){
+        pushMatrix();
+        translate(x,y);
+        x=0;y=0;
+        scale(s);
+        rotate(r);
+        
+        //Boat
+        fill(255, 105, 0);
+        rect(x-100,y+30,200,150);
+        triangle(x-180,y+30,x-100,y+30,x-100,y+180);
+        triangle(x+180,y+30,x+100,y+30,x+100,y+180);
+        
+        //Pole and Flag
+        fill(150, 48, 0);
+        rect(x-10,y-150,20,170);
+        fill(255, 253, 208);
+        triangle(x+20,y-150,x+20,y-50,x+100,y-50);
+        
+        popMatrix();
+    };
+    var drawBird = function(x,y,s,r,w){
+        pushMatrix();
+        translate(x,y);
+        x=0;y=0;
+        scale(s);
+        rotate(r);
+        
+        fill(255, 255, 255);
+        triangle(x-30,y+w,x,y+10,x,y+5);
+        triangle(x+30,y+w,x,y+10,x,y+5);
+        
+        popMatrix();
+    };
+    var drawSun = function(x,y,s,r){
+        pushMatrix();
+        translate(x,y);
+        x=0;y=0;
+        scale(s);
+        rotate(r);
+        
+        fill(242, 255, 0);
+        ellipse(x,y,100,100);
+        
+        popMatrix();
+    };
+    var drawSea = function(x,y,s,r){
+        pushMatrix();
+        translate(x,y);
+        x=0;y=0;
+        scale(s);
+        rotate(r);
+        
+        fill(0, 49, 128,200);
+        rect(x-200,y,400,400);
+        
+        popMatrix();
+    };
+    
+    draw= function() {
+        fill(sunY-127.5, 159, 217);
+        rect(-1,-1,402,402);
+        
+        timer = timer + 1/60;
+        
+        drawBoat(boatX,boatY,0.29,0);
+        boatX=boatX+1;
+        boatY=boatY+0.1;
+        
+        drawBird(birdX,birdY,1.00,0,wingY);
+        drawBird(birdX+-20,birdY+-17,0.65,0,wingY);
+        drawBird(birdX+18,birdY+19,0.65,0,wingY);
+        birdX=birdX-1;
+        
+        drawSun(sunX,sunY,1.00,0);
+        sunY = sunY-1;
+        
+        drawSea(seaX,seaY,1.00,0);
+        seaY = seaY+0.1;
+        if(timer>=9){
+            boatX = -60;boatY = 252;birdX = 441;birdY = 50;sunX = 344;sunY = 450;seaX = 200;seaY = 285;speedY = 1;wingY = 15;timer = 0;
+        }
+            
+            if(wingY<4){
+            speedY = speedY * -1;
+        }
+        if(wingY>17){
+            speedY = speedY * -1;
+        }
+        wingY = wingY + speedY;
+    };}
+    }};
+  var canvas = document.getElementById("mycanvas"); 
+  var processingInstance = new Processing(canvas, programCode); 
+  </script>
+</html>
